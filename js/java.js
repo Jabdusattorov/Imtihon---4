@@ -144,6 +144,8 @@ nav.addEventListener("click", (e)=>{
     }
 })
 
+let array = []
+
 async function newests(num){
     let res = await fetch("https://www.googleapis.com/books/v1/volumes?q=html&startIndex=40&maxResults=40&orderBy=newest")
     let datas = await res.json()
@@ -195,17 +197,33 @@ async function newests(num){
         navExitIcon.addEventListener("click", ()=>{
             navBar.style.transform = "scale(0)"
         })
+    })
+
+    section.addEventListener("click", (e)=>{
+        let res = e.target
         if(res.dataset.id){
-            for(let i = 0; i < array.length; i++){
-                if(data[i].id == res.dataset.id){
-                    res.setAttribute("disabled", '')
+            console.log(res.dataset.id);
+            for(let i = 0; i < data.length; i++){
+                if(res.dataset.id == data[i].id){
                     console.log(data[i]);
-                    console.log(res.dataset.id);
+
+                    array.push(data[i])
+                    localStorage.setItem("array", JSON.stringify(array))
+                    let local = localStorage.getItem("array", array)
+                    console.log(local);
+                    articleDiv.innerHTML = ""
+                    // for(let i = 0; i < local.length; i++){
+                    //     getBookMark(
+                    //         local[i].id,
+                    //         local[i].id,
+                    //     )
+                    // }
                 }
             }
         }
+
     })
-}
+}newests(1)
 
 const newest = document.querySelector("#newest")
 newest.addEventListener("click", ()=>{
@@ -287,45 +305,40 @@ inpSearch.addEventListener("input", (e)=>{
                 }
             })
 
+    //         let array = []
+    //         section.addEventListener("click", (e)=>{
+    //         let res = e.target
+    //             if(res.dataset.id){
+    //                 for(let i = 0; i < data.length; i++){
+    //                     if(data[i].id == res.dataset.id){
+    //                         array.push(data[i])
+    //                         console.log(array);
+    //                         localStorage.setItem("array", JSON.stringify(array))
+    //                     }
+    //                 }
+    //             }
+    //         })
+    // let a = JSON.parse(localStorage.getItem("array"))
+    // array.shift(a)
+    // for(let i = 0; i < array.length; i++){
+    //     getBookMark(
+    //         array[i].volumeInfo.title,
+    //         array[i].volumeInfo.authors[0],    
+    //         )
+    //     }
 
-
-            let array = []
-            section.addEventListener("click", (e)=>{
-            let res = e.target
-                if(res.dataset.id){
-                    for(let i = 0; i < data.length; i++){
-                        if(data[i].id == res.dataset.id){
-                            array.push(data[i])
-                            console.log(array);
-                            localStorage.setItem("array", JSON.stringify(array))
-                        }
-                    }
-                }
-            })
-    let a = JSON.parse(localStorage.getItem("array"))
-    array.shift(a)
-    for(let i = 0; i < array.length; i++){
-        getBookMark(
-            array[i].volumeInfo.title,
-            array[i].volumeInfo.authors[0],    
-            )
-        }
-
-    setTimeout(() => {
-        section.addEventListener("click", ()=>{
-            articleDiv.innerHTML = ""
-            for(let i = 0; i < array.length; i++){
-                getBookMark(
-                    array[i].volumeInfo.title,
-                    array[i].volumeInfo.authors[0],    
-                )
-            } 
-        })
-    }, 1000 * 2);
-
+    // setTimeout(() => {
+    //     section.addEventListener("click", ()=>{
+    //         articleDiv.innerHTML = ""
+    //         for(let i = 0; i < array.length; i++){
+    //             getBookMark(
+    //                 array[i].volumeInfo.title,
+    //                 array[i].volumeInfo.authors[0],    
+    //             )
+    //         } 
+    //     })
+    // }, 1000 * 2);
 }
-
-
 
         pagination.addEventListener("click", (e)=>{
             pagination.style.display = "block"
