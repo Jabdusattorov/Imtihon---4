@@ -13,19 +13,21 @@
     
     <div class="container-fluid">
         <nav>
-            <img src="../images/nav-icon.png" alt="Logo BookShelter">
+            <img id="navImg" src="../images/nav-icon.png" alt="Logo BookShelter">
             <div class="inp-group">
                 <label for="search"><i class="fa-solid fa-search"></i></label>
                 <input id="search" type="search" placeholder="Search books">
             </div>
-
             <div class="modes">
-                <i class="fa-solid fa-sun"></i>
-                <i class="fa-solid fa-moon"></i>
+                <div class="mod">
+                    <button id="sun">
+                        <i class="fa-solid fa-sun"></i>
+                    </button>
+                    <i class="fa-solid fa-moon" id="moon"></i>
+                </div>
                 <button class="btn btn-primary" id="logout">Logout</button>
             </div>
         </nav>
-
         <div class="nav-info">
             <h5 id="show"></h4>
             <button id="newest">
@@ -33,15 +35,12 @@
                 Order by newest
             </button>
         </div>
-
         <div class="sect">
-
             <article class="border">
                 <h3 class="px-3 pt-2">Bookmarks</h3>
                 <p class="px-2">If you don't like to read, you haven't found the right book</p>
                 <div class="article"></div>
             </article>
-    
             <section>
             </section>
         </div>

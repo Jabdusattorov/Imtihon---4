@@ -144,10 +144,15 @@ nav.addEventListener("click", (e)=>{
     }
 })
 
-async function newests(){
+async function newests(num){
     let res = await fetch("https://www.googleapis.com/books/v1/volumes?q=html&startIndex=40&maxResults=40&orderBy=newest")
     let datas = await res.json()
     let data = datas.items
+
+    data.splice(6 * num)
+    data.splice(6)
+    console.log(data);
+
     show.textContent = `Showing ${data.length} Result(s)`
     section.innerHTML = ""
     for(let i = 0; i < data.length; i++){
@@ -161,103 +166,65 @@ async function newests(){
             data[i].id,
           )        
     }
+    section.addEventListener("click", (e)=>{
+        let res = e.target
+        if(res.dataset.title){
+            for(let i = 0; i < data.length; i++){
+                if(data[i].id == res.dataset.title){
+                    console.log(data[i]);
+                    navTitle.innerHTML = data[i].volumeInfo.title
+                    navImg.setAttribute("src", data[i].volumeInfo.imageLinks.smallThumbnail)
+                    navBody.innerHTML = data[i].volumeInfo.description
+                    navAuthor1.innerHTML = data[i].volumeInfo.authors[0]
+                    if(!data[i].volumeInfo.authors[1]){
+                        navAuthor2.classList.add("d-none")
+                    }
+                    navAuthor2.innerHTML = data[i].volumeInfo.authors[1]
+                    navYear.innerHTML = data[i].volumeInfo.publishedDate;
+                    navCategories.innerHTML = data[i].volumeInfo.printType
+                    navPages.innerHTML = data[i].volumeInfo.pageCount
+                    navReadBtn.setAttribute("href", data[i].volumeInfo.previewLink)
+                    navReadBtn.setAttribute("target", "_blank")
+                }
+            }
+            navBar.style.transform = "scale(1)"
+        }
+        navExitDiv.addEventListener("click", ()=>{
+            navBar.style.transform = "scale(0)"
+        })
+        navExitIcon.addEventListener("click", ()=>{
+            navBar.style.transform = "scale(0)"
+        })
+        if(res.dataset.id){
+            for(let i = 0; i < array.length; i++){
+                if(data[i].id == res.dataset.id){
+                    res.setAttribute("disabled", '')
+                    console.log(data[i]);
+                    console.log(res.dataset.id);
+                }
+            }
+        }
+    })
 }
+
 const newest = document.querySelector("#newest")
 newest.addEventListener("click", ()=>{
-    newests()
-    console.log("qwerty");
+    newests(1)
+    pagination.style.display = "block"
+    pagination.addEventListener("click", (e)=>{
+        let res = e.target
+            newests(res.innerHTML)
+            console.log(res.innerHTML);
+    })
 })
 
 const pagination = document.querySelector("#pagination")
 pagination.style.display = "none"
 
-// async function search(){
-//     let res = await fetch("https://www.googleapis.com/books/v1/volumes?q=html&startIndex=6&maxResults=6&orderBy=newest")
-//     let datas = await res.json()
-//     let data = datas.items
-
-//         let array = []
-
-//         section.addEventListener("click", (e)=>{
-//             let res = e.target
-//             if(res.dataset.id){
-//                 for(let i = 0; i < data.length; i++){
-//                     if(data[i].id == res.dataset.id){
-//                         array.push(data[i])
-//                         console.log(array);
-//                         localStorage.setItem("array", JSON.stringify(array))
-//             }
-//         }
-//     }
-// })
-//     let a = JSON.parse(localStorage.getItem("array"))
-//     array.shift(a)
-//     for(let i = 0; i < array.length; i++){
-//         getBookMark(
-//             array[i].volumeInfo.title,
-//             array[i].volumeInfo.authors[0],    
-//         )
-//     }
-
-// section.addEventListener("click", (e)=>{
-//     let res = e.target
-//     if(res.dataset.title){
-//         for(let i = 0; i < data.length; i++){
-//             if(data[i].id == res.dataset.title){
-//                 console.log(data[i]);
-//                 navTitle.innerHTML = data[i].volumeInfo.title
-//                 navImg.setAttribute("src", data[i].volumeInfo.imageLinks.smallThumbnail)
-//                 navBody.innerHTML = data[i].volumeInfo.description
-//                 navAuthor1.innerHTML = data[i].volumeInfo.authors[0]
-//                 if(!data[i].volumeInfo.authors[1]){
-//                     navAuthor2.classList.add("d-none")
-//                 }
-//                 navAuthor2.innerHTML = data[i].volumeInfo.authors[1]
-//                 navYear.innerHTML = data[i].volumeInfo.publishedDate;
-//                 navCategories.innerHTML = data[i].volumeInfo.printType
-//                 navPages.innerHTML = data[i].volumeInfo.pageCount
-//                 navReadBtn.setAttribute("href", data[i].volumeInfo.previewLink)
-//                 navReadBtn.setAttribute("target", "_blank")
-//             }
-//         }
-//         navBar.style.transform = "scale(1)"
-//     }
-//     navExitDiv.addEventListener("click", ()=>{
-//         navBar.style.transform = "scale(0)"
-//     })
-//     navExitIcon.addEventListener("click", ()=>{
-//         navBar.style.transform = "scale(0)"
-//     })
-//     if(res.dataset.id){
-//         for(let i = 0; i < array.length; i++){
-//             if(data[i].id == res.dataset.id){
-//                 res.setAttribute("disabled", '')
-//                 console.log(data[i]);
-//                 console.log(res.dataset.id);
-//             }
-//         }
-//     }
-// })
-
-// setTimeout(() => {
-//     section.addEventListener("click", ()=>{
-//         articleDiv.innerHTML = ""
-//         for(let i = 0; i < array.length; i++){
-//             getBookMark(
-//                 array[i].volumeInfo.title,
-//                 array[i].volumeInfo.authors[0],    
-//             )
-//         } 
-//     })
-// }, 1000 * 2);
-// }
-
-
-
-
 inpSearch.addEventListener("input", (e)=>{
     let find = e.target
     if(find.value){
+        console.log(find);
         pagination.style.display = "block"
         async function searchData(num){
             let res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${find.value}&startIndex=40&maxResults=40&orderBy=newest`)
@@ -370,10 +337,40 @@ inpSearch.addEventListener("input", (e)=>{
         })
         searchData(1)
     }
-
-    if(find.value === ""){
+     else if(!find.value){
+         console.log(find);
         section.innerHTML = [];
         sect();
     }
-    console.log(find.value);
+})
+
+const sunIcon = document.getElementById("sun")
+const moonIcon = document.getElementById("moon")
+const nav_img = document.getElementById("navImg") 
+const navInfo = document.querySelector(".nav-info")
+const sectDiv = document.querySelector(".sect")
+const body = document.querySelector("body")
+sunIcon.style.display = "none"
+moonIcon.addEventListener("click", ()=>{
+    sunIcon.style.display = "inline-block"
+    moonIcon.style.display = "none"
+    nav.classList.add("active-nav")
+    inpSearch.classList.add("active-inp")
+    nav_img.setAttribute("src", "../images/login-icon.png")
+    navInfo.classList.add("active-nav-info")
+    navBar.classList.add("active-navigatsion")
+    sectDiv.classList.add("active-section")
+    body.classList.add("active-body")
+    pagination.classList.add("active-pagination", "bg-dark")
+})
+sunIcon.addEventListener("click", ()=>{
+    sunIcon.style.display = "none"
+    moonIcon.style.display = "inline-block"
+    nav.classList.remove("active-nav")
+    inpSearch.classList.remove("active-inp")
+    nav_img.setAttribute("src", "../images/nav-icon.png")
+    navInfo.classList.remove("active-nav-info")
+    sectDiv.classList.remove("active-section")
+    document.querySelector("body")
+    body.classList.remove("active-body")
 })

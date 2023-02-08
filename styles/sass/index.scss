@@ -41,9 +41,22 @@
             justify-content: end;
             align-items: center;
             gap: 10px;
+            .mod{
+                #sun{
+                    color: white;
+                    font-size: larger;
+                    border: none;
+                    background-color: transparent;
+                }
+                #moon{
+                    color: rgb(83, 83, 83);
+                    font-size: larger;
+                    border: none;
+                    background-color: transparent;
+                }
+            }
         }
     }
-    
     // ----------NAV-----------
     .nav-info{
         display: flex;
@@ -59,8 +72,7 @@
             background-color: darkgray;
             padding: 5px 10px;
         }
-    }
-    
+    }   
     // ----------SECTION-----------
     .sect{
         display: flex;
@@ -152,10 +164,6 @@
         }
     }
 }
-
-
-
-
 // ----------Navigation-bar-----------
 .navigation-bars{
     transition: all 0.2s ease-in;
@@ -229,5 +237,76 @@
             background-color: rgba(198, 206, 220, 0.222);
             padding: 10px;
         }
+    }
+}
+.active-body{
+    background-color: rgba(0, 0, 0, 0.931);
+}
+.active-nav{
+    background-color: black;
+    color: white;
+}
+.active-inp{
+    color: white;
+}
+.active-nav-info{
+    background-color: black;
+    color: white;
+    button{
+        background-color: white !important;
+        color: black !important;
+    }
+}
+.active-navigatsion{
+    color: white;
+    .nav-exit-div{
+        background-color: rgba(130, 130, 130, 0.681) !important;
+        opacity: 0.5 !important;
+    }
+    .nav-bar{
+        background-color: black;
+        color: white;
+        .nav-bar-header{
+            background-color: rgb(20, 20, 20);
+            color: white;
+        }
+        .nav-bar-sect{
+            color: white;
+        }
+        .nav-bar-foot{
+            span{
+                span{
+                    background-color: rgb(83, 83, 83); color: white;
+                }
+            }
+        }
+        .nav-bar-footer{
+            a{
+                background-color: rgb(20, 20, 20) !important;
+                color: white;
+            }
+        }
+    }
+}
+.active-section{
+    background-color: black;
+    article{
+        background-color: black;
+        color: white;
+    }
+    section{
+        background-color: rgba(0, 0, 0, 0.931);
+        color: white;
+        .cards{
+            background-color: black !important;
+            color: white !important;
+        }
+    }
+}
+.active-pagination{
+    background-color: rgba(0, 0, 0, 0.931) !important;
+    color: white !important;
+    li{
+        color: white !important;
     }
 }
