@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(../../images/login-background.jpg);
+}
+.cont{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    form{
+        text-align: right;
+        width: 40%;
+        height: 50vh;
+        img{
+            width: 100%;
+            height: 20%;
+            object-fit: cover;
+        }
+        div{
+            width: 100%;
+            height: 50px;
+            border: 1px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0px 10px;
+            border-radius: 5px;
+            border: 2px solid whitesmoke;
+            label{
+                font-size: larger;
+                padding-right: 10px;
+                color: whitesmoke;
+            }
+            input{
+                width: 90%;
+                padding-left: 10px;
+                background-color: transparent;
+                outline: none;
+                border: none;
+                color: whitesmoke;
+            }
+        }
+        div:nth-of-type(1){
+            margin:  50px 0px 20px;
+        }
+        button{
+            width: 100%;
+            display: inline-block;
+            border: none;
+            font-size: larger;
+            font-weight: 500;
+            color: rgb(52, 88, 215);
+            margin: 50px 0px 10px;
+            border-radius: 3px;
+            padding: 10px 0px;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    }
+}
+
+::-webkit-input-placeholder{
+    color: whitesmoke;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    letter-spacing: 1px;
+}
